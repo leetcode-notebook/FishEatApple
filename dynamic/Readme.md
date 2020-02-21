@@ -34,3 +34,23 @@ public:
     }
 };
 ```
+### 53.最大子序和
+重点是考虑`d[n-1]`项的值，如果是负的话，那就以为前面的子序和产生的是**负作用**，应当舍弃，将当前值作为最新的子序和，无论当前值的大小，循环期间要将产生的最大的子序和保留下来。
+```cpp
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int pre=nums[0];
+        int sum=pre,res=pre;
+        if(nums.size()<2) return res;
+        for(int i=1;i<nums.size();i++)
+        {
+            if(pre<=0) sum=nums[i];
+            else sum+=nums[i];
+            pre=sum;
+            res=max(res,sum);
+        }
+        return res;
+    }
+};
+```
