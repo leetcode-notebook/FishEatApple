@@ -1,3 +1,5 @@
+### 20.有效的括号
+```cpp
 class Solution {
 public:
     bool isValid(string s) {
@@ -27,3 +29,4 @@ public:
         return sk.empty();
     }
 };
+```

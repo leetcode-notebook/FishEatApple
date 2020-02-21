@@ -1,3 +1,5 @@
+### 236.二叉树的最近公共祖先
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -18,3 +20,4 @@ public:
         return left?left:right;
     }
 };
+```
