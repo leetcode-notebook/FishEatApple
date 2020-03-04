@@ -97,3 +97,25 @@ public:
     }
 };
 ```
+### 面试题 10.01. 合并排序的数组
+在原始数组上进行操作,节省了空间,空间复杂度为常数级别O(1),时间复杂度为O(m+n)
+```cpp
+class Solution {
+public:
+    void merge(vector<int>& A, int m, vector<int>& B, int n) {
+        int pA=0,pB=0;
+        while(pB<n)
+        {
+            if(B[pB]<A[pA]) m++;
+            if(m<=0||B[pB]<A[pA]) 
+            {
+                A.insert(A.begin()+pA,B[pB]);
+                A.pop_back();
+                pB++;
+            }
+            pA++;
+            m--;
+        }
+    }
+};
+```

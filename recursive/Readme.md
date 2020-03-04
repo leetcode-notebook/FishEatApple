@@ -42,3 +42,26 @@ public:
     }
 };
 ```
+### 206.反转链表
+利用递归三部曲可以轻松解决，这里要注意最后的
+`head->next=NULL`否则会出现死循环。
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(NULL==head||NULL==head->next) return head;
+        ListNode* node=reverseList(head->next);
+        head->next->next=head;
+        head->next=NULL;
+        return node;
+    }
+};
+```
