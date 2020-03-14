@@ -133,3 +133,30 @@ class Solution:
                 dp[i]=min(dp[i],dp[i-coin]+1)
         return dp[amount] if dp[amount]!=(amount+1) else -1
 ```
+### 121. 买卖股票的最佳时机
+首要的是要列出动态转移方程,其中重要的一点是考虑`dp[n]`的含义,结合题意,`dp[n]`的意思为**第n天**将股票卖出所能获得的最大利润,因此我们需要知道`n`之前的**最小的价格**,综上,`dp[n]=max(dp[n-1],list[n]-minPrice)`.此外,这题因为还可以在降低空间复杂度上下功夫.
+```py
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        if len(prices)<2: return 0
+        minPrice=prices[0]
+        maxProfit=0
+        for i in range(1,len(prices)):
+            maxProfit=max(maxProfit,prices[i]-minPrice)
+            minPrice=min(minPrice,prices[i])
+        return maxProfit if maxProfit>0 else 0
+```
+### 300. 最长上升子序列
+动态转移方程为`dp[n]=max(dp(j))+1 {0<=j<n} 需满足nums[n]>nums[j]`,此题用**贪心**+**二分查找**可以降低时间复杂度.
+```py
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        if len(nums)==0:return 0
+        dp=[1]
+        for i in range(len(nums)-1):
+            dp.append(1)
+            for j in range(i+1):
+                if nums[i+1]>nums[j]:
+                    dp[i+1]=max(dp[j]+1,dp[i+1])
+        return max(dp)
+```

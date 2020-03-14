@@ -85,3 +85,25 @@ class Solution:
             return res if res!=float('INF') else -1
         return dp(amount)
 ```
+### 543. 二叉树的直径
+需要计算出二叉树中每一个节点的**左子树和右子树的高度之和**,递归期间保留住**最大值**即为整个二叉树的直径
+```py
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        self.res=0
+        self.helper(root)
+        return self.res
+    def helper(self,root:TreeNode):
+        if None==root:return 0
+        left=self.helper(root.left)
+        right=self.helper(root.right)
+        self.res=max(self.res,(left+right))
+        return max(left,right)+1
+```
