@@ -50,3 +50,17 @@ public:
 };
 ```
 用一个mem数组来存放当前位置开始的字符串之前是否已经计算过，在经历过一次完整的字符串计算后，mem数组中保存了相应的状态值，为后续的是否跳过计算计算提供依据，时间复杂度也降低为O(n*n)。
+### 1160. 拼写单词
+`all()`的用法
+```py
+class Solution:
+    def countCharacters(self, words: List[str], chars: str) -> int:
+        from collections import Counter
+        char=Counter(chars)
+        res=0
+        for w in words:
+            word=Counter(w)
+            if all(word[c]<=char[c] for c in word):
+                res+=len(w)
+        return res
+```

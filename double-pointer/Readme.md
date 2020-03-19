@@ -119,3 +119,22 @@ public:
     }
 };
 ```
+### 面试题 01.06. 字符串压缩
+```py
+class Solution:
+    def compressString(self, S: str) -> str:
+        if len(S)<2:return S
+        res,l,r,num=S[0],0,1,1
+        while r<len(S):
+            c=S[r]
+            if c==S[l]:
+                num+=1
+            else:
+                res+=str(num)
+                res+=c
+                l=r
+                num=1
+            r+=1
+        res+=str(num)
+        return res if len(res)<len(S) else S
+```

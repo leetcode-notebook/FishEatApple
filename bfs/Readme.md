@@ -90,3 +90,22 @@ public:
     }
 };
 ```
+### 695. 岛屿的最大面积
+```py
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        maxArea=0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                maxArea=max(maxArea,self.helper(grid,i,j))
+        return maxArea
+    def helper(self,grid:List[List[int]],i,j):
+        if i>=len(grid) or i<0:
+            return 0
+        elif j>=len(grid[0]) or j<0:
+            return 0
+        if 1==grid[i][j]:
+            grid[i][j]=0
+            return 1+self.helper(grid,i-1,j)+self.helper(grid,i+1,j)+self.helper(grid,i,j+1)+self.helper(grid,i,j-1)
+        return 0
+```

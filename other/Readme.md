@@ -63,3 +63,12 @@ class Solution:
             else:dict[num]=1
             if dict[num]>(len(nums)//2):return num
 ```
+### 836. 矩形重叠
+`IOU`的基本解法,若两个矩形相交,则他们**投影到坐标轴**上的线段必定**重叠**
+```py
+class Solution(object):
+    def isRectangleOverlap(self, rec1, rec2):
+        def intersect(p_left,p_right,q_left,q_right):
+            return max(p_left,q_left)<min(p_right,q_right)
+        return intersect(rec1[0],rec1[2],rec2[0],rec2[2]) and intersect(rec1[1],rec1[3],rec2[1],rec2[3])
+```
