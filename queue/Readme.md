@@ -2,6 +2,7 @@
 一开始傻逼了，在pop()里的写得是
 `for(int i=0;i<q1.size()-1;i++)`
 居然没看到里面对q1在进行操作，size在不停变，傻逼了傻逼了
+`用两个queue`
 ```cpp
 class MyStack {
 public:
@@ -41,6 +42,57 @@ public:
     /** Returns whether the stack is empty. */
     bool empty() {
         return q1.empty();
+    }
+};
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack* obj = new MyStack();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->top();
+ * bool param_4 = obj->empty();
+ */
+```
+`用一个queue`
+```cpp
+class MyStack {
+public:
+    queue<int> q;
+    int topVal;
+    /** Initialize your data structure here. */
+    MyStack() {
+
+    }
+    
+    /** Push element x onto stack. */
+    void push(int x) {
+        q.push(x);
+        topVal=x;
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    int pop() {
+        int s=q.size()-1;
+        while(s--)
+        {
+            if(s==0) topVal=q.front();
+            q.push(q.front());
+            q.pop();
+        }
+        int res=q.front();
+        q.pop();
+        return res;
+    }
+    
+    /** Get the top element. */
+    int top() {
+        return topVal;
+    }
+    
+    /** Returns whether the stack is empty. */
+    bool empty() {
+        return q.empty();
     }
 };
 
