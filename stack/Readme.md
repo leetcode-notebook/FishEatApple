@@ -82,3 +82,100 @@ public:
  * bool param_4 = obj->empty();
  */
 ```
+### 227. 基本计算器 II
+```cpp
+class Solution {
+public:
+    int calculate(string s) {
+        int num=0;
+        char sign='+';
+        stack<int> sk;
+        for(int i=0;i<s.size();i++){
+            char ch=s[i];
+            if(isDigital(ch)){
+                num=num*10+(ch-'0');
+            }
+            if((!isDigital(ch)&&ch!=' ')||i==s.size()-1){
+                int pre;
+                switch(sign){
+                    case '+':
+                        sk.push(num); break;
+                    case '-':
+                        sk.push(-num); break;
+                    case '*':
+                        pre=sk.top();
+                        sk.pop();
+                        sk.push(pre*num); break;
+                    case '/':
+                        pre=sk.top();
+                        sk.pop();
+                        sk.push(pre/num); break;
+                }
+                num=0;
+                sign=ch;
+            }
+        }
+        int res=0;
+        while(!sk.empty()){
+            res+=sk.top();
+            sk.pop();
+        }
+        return res;
+    }
+    bool isDigital(char ch){
+        if('0'<=ch&&'9'>=ch){
+            return true;
+        }
+        return false;
+    }
+};
+```
+### 224. 基本计算器
+在无括号的基础上加上递归，括号中的计算其实就是无括号的算法版本
+```cpp
+class Solution {
+public:
+    int calculate(string s) {
+        queue<char> str;
+        for(int i=0;i<s.size();i++){
+            str.push(s[i]);
+        }
+        return helper(str);
+    }
+    int helper(queue<char>& str){
+        stack<int> sk;
+        char sign='+';
+        int num=0;
+        while(!str.empty()){
+            char ch=str.front();
+            str.pop();
+            if(isDigital(ch)){
+                num=num*10+(ch-'0');
+            }
+            if(ch=='('){
+                num=helper(str);
+            }
+            if((!isDigital(ch)&&ch!=' ')||str.empty()){
+                switch(sign){
+                    case '+':
+                        sk.push(num); break;
+                    case '-':
+                        sk.push(-num); break;
+                }
+                sign=ch;
+                num=0;
+            }
+            if(ch==')') break;
+        }
+        int res=0;
+        while(!sk.empty()){
+            res+=sk.top();
+            sk.pop();
+        }
+        return res;
+    }
+    bool isDigital(char ch){
+        return (ch>='0'&&ch<='9')?true:false;
+    }
+};
+```
