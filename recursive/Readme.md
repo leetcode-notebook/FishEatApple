@@ -107,3 +107,40 @@ class Solution:
         self.res=max(self.res,(left+right))
         return max(left,right)+1
 ```
+### 969. 煎饼排序
+```cpp
+class Solution {
+public:
+    vector<int> pancakeSort(vector<int>& A) {
+        vector<int> res;
+        sort(A,res,A.size()-1);
+        return res;
+    }
+    void sort(vector<int>& A,vector<int>& res,int n){
+        if(n==0) return;
+        int idxMax=0;
+        int valMax=A[0];
+        for(int i=1;i<=n;i++){
+            if(A[i]>valMax){
+                valMax=A[i];
+                idxMax=i;
+            }
+        }
+        reverse(A,0,idxMax);
+        res.push_back(idxMax+1);
+        reverse(A,0,n);
+        res.push_back(n+1);
+        sort(A,res,n-1);
+        
+    }
+    void reverse(vector<int>& A,int i,int j){
+        while(i<j){
+            int tmp=A[i];
+            A[i]=A[j];
+            A[j]=tmp;
+            i++;
+            j--;
+        }
+    }
+};
+```

@@ -68,3 +68,23 @@ public:
     }
 };
 ```
+### 560. 和为K的子数组
+利用了**前缀**的技巧，哈希表降低了时间复杂度
+```cpp
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        int sumArray[nums.size()+1];
+        sumArray[0]=0;
+        int res=0;
+        unordered_map<int,int> hash;
+        hash[0]=1;
+        for(int i=0;i<nums.size();i++){
+            sumArray[i+1]=nums[i]+sumArray[i];
+            res+=hash[sumArray[i+1]-k];
+            hash[sumArray[i+1]]++;
+        }
+        return res;
+    }
+};
+```

@@ -64,3 +64,28 @@ class Solution:
                 res+=len(w)
         return res
 ```
+### 43. 字符串相乘
+```cpp
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        vector<int> ans(num1.size()+num2.size(),0);
+        for(int i=num1.size()-1;i>=0;i--){
+            for(int j=num2.size()-1;j>=0;j--){
+                int multiplyVal=(num1[i]-'0')*(num2[j]-'0');
+                int p=i+j;int q=i+j+1;
+                int sum=ans[q]+multiplyVal;
+                ans[q]=sum%10;
+                ans[p]=ans[p]+sum/10;
+            }
+        }
+        int index=-1;
+        while(++index<ans.size()&&ans[index]==0);
+        string res;
+        for(int i=index;i<ans.size();i++){
+            res.push_back(ans[i]+'0');
+        }
+        return index==ans.size()?"0":res;
+    }
+};
+```
